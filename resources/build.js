@@ -6,7 +6,7 @@ const assert = require('assert');
 
 const babel = require('@babel/core');
 
-const { readdirRecursive, showDirStats } = require('./utils');
+const { readdirRecursive } = require('./utils');
 
 if (require.main === module) {
   fs.rmSync('./npmDist', { recursive: true, force: true });
@@ -39,7 +39,7 @@ if (require.main === module) {
     JSON.stringify(packageJSON, null, 2),
   );
 
-  showDirStats('./npmDist');
+//   showDirStats('./npmDist');
 }
 
 function babelBuild(srcPath, options) {
