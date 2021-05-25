@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const assert = require('assert');
+// const assert = require('assert');
 
 const babel = require('@babel/core');
 
@@ -15,7 +15,7 @@ if (require.main === module) {
   const srcFiles = readdirRecursive('./src', { ignoreDir: /^__.*__$/ });
   for (const filepath of srcFiles) {
     const srcPath = path.join('./src', filepath);
-    const destPath = path.join('./npmDist', filepath);
+    const destPath = path.join('./dist', filepath);
 
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
     if (filepath.endsWith('.js')) {
@@ -51,33 +51,33 @@ function babelBuild(srcPath, options) {
   return code + '\n';
 }
 
-function buildPackageJSON() {
-  const packageJSON = JSON.parse(
-    fs.readFileSync(require.resolve('../package.json'), 'utf-8'),
-  );
+// function buildPackageJSON() {
+//   const packageJSON = JSON.parse(
+//     fs.readFileSync(require.resolve('../package.json'), 'utf-8'),
+//   );
 
-  delete packageJSON.private;
-  delete packageJSON.scripts;
-  delete packageJSON.devDependencies;
+//   delete packageJSON.private;
+//   delete packageJSON.scripts;
+//   delete packageJSON.devDependencies;
 
-  const { version } = packageJSON;
-  const versionMatch = /^\d+\.\d+\.\d+-?(?<preReleaseTag>.*)?$/.exec(version);
-  if (!versionMatch) {
-    throw new Error('Version does not match semver spec: ' + version);
-  }
+//   const { version } = packageJSON;
+//   const versionMatch = /^\d+\.\d+\.\d+-?(?<preReleaseTag>.*)?$/.exec(version);
+//   if (!versionMatch) {
+//     throw new Error('Version does not match semver spec: ' + version);
+//   }
 
-  const { preReleaseTag } = versionMatch.groups;
+//   const { preReleaseTag } = versionMatch.groups;
 
-  if (preReleaseTag != null) {
-    const [tag] = preReleaseTag.split('.');
-    assert(
-      tag.startsWith('experimental-') || ['alpha', 'beta', 'rc'].includes(tag),
-      `"${tag}" tag is supported.`,
-    );
+//   if (preReleaseTag != null) {
+//     const [tag] = preReleaseTag.split('.');
+//     assert(
+//       tag.startsWith('experimental-') || ['alpha', 'beta', 'rc'].includes(tag),
+//       `"${tag}" tag is supported.`,
+//     );
 
-    assert(!packageJSON.publishConfig, 'Can not override "publishConfig".');
-    packageJSON.publishConfig = { tag: tag || 'latest' };
-  }
+//     assert(!packageJSON.publishConfig, 'Can not override "publishConfig".');
+//     packageJSON.publishConfig = { tag: tag || 'latest' };
+//   }
 
-  return packageJSON;
-}
+//   return packageJSON;
+// }
