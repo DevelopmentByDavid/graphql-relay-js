@@ -19,8 +19,8 @@ if (require.main === module) {
 
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
     if (filepath.endsWith('.js')) {
-    //   const flowBody = '// @flow strict\n' + fs.readFileSync(srcPath, 'utf-8');
-    //   fs.writeFileSync(destPath + '.flow', flowBody);
+      //   const flowBody = '// @flow strict\n' + fs.readFileSync(srcPath, 'utf-8');
+      //   fs.writeFileSync(destPath + '.flow', flowBody);
 
       const cjs = babelBuild(srcPath, { envName: 'cjs' });
       fs.writeFileSync(destPath, cjs);
@@ -29,17 +29,17 @@ if (require.main === module) {
     }
   }
 
-  fs.copyFileSync('./LICENSE', './npmDist/LICENSE');
-  fs.copyFileSync('./README.md', './npmDist/README.md');
+  //   fs.copyFileSync('./LICENSE', './npmDist/LICENSE');
+  //   fs.copyFileSync('./README.md', './npmDist/README.md');
 
   // Should be done as the last step so only valid packages can be published
-  const packageJSON = buildPackageJSON();
-  fs.writeFileSync(
-    './npmDist/package.json',
-    JSON.stringify(packageJSON, null, 2),
-  );
+  //   const packageJSON = buildPackageJSON();
+  //   fs.writeFileSync(
+  //     './npmDist/package.json',
+  //     JSON.stringify(packageJSON, null, 2),
+  //   );
 
-//   showDirStats('./npmDist');
+  //   showDirStats('./npmDist');
 }
 
 function babelBuild(srcPath, options) {
