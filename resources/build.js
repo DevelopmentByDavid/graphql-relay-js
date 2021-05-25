@@ -19,8 +19,8 @@ if (require.main === module) {
 
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
     if (filepath.endsWith('.js')) {
-      const flowBody = '// @flow strict\n' + fs.readFileSync(srcPath, 'utf-8');
-      fs.writeFileSync(destPath + '.flow', flowBody);
+    //   const flowBody = '// @flow strict\n' + fs.readFileSync(srcPath, 'utf-8');
+    //   fs.writeFileSync(destPath + '.flow', flowBody);
 
       const cjs = babelBuild(srcPath, { envName: 'cjs' });
       fs.writeFileSync(destPath, cjs);
